@@ -1,0 +1,64 @@
+//ciclo de cores para 2 leds RGB
+
+int red = 150;
+int green = 0;
+int blue = 0;
+int brlmin = 0;
+int brlmax = 150;
+int espera = 10;
+int velocidade = 1;
+
+void setup() {
+  // pino sozinho: vermelho, ligar no 3
+  //pino da outra extremidade: azul, ligar no 6
+  //pino maior: terra, ligar no GND
+  //o que sobrou: verde, ligar no 5
+pinMode(3, OUTPUT);
+pinMode(5, OUTPUT);
+pinMode(6, OUTPUT);
+pinMode(9, OUTPUT);
+pinMode(10, OUTPUT);
+pinMode(11, OUTPUT);
+pinMode(13, INPUT);
+delay(3000);
+}
+
+void loop() {
+  analogWrite(3, brlmax);
+ while (green<brlmax){
+  green += velocidade;
+  analogWrite(5, green);
+  analogWrite(10, green);
+  delay(espera);
+ }
+  while (red>brlmin){
+  red -= velocidade;
+  analogWrite(3, red);
+  analogWrite(9, red);
+  delay(espera);
+ }
+ while (blue<brlmax){
+  blue += velocidade;
+  analogWrite(6, blue);
+  analogWrite(11, blue);
+  delay(espera);
+ }
+  while (green>brlmin){
+  green -= velocidade;
+  analogWrite(5, green);
+  analogWrite(10, green);
+  delay(espera);
+ }
+ while (red<brlmax){
+  red += velocidade;
+  analogWrite(3, red);
+  analogWrite(9, red);
+  delay(espera);
+ }
+   while (blue>brlmin){
+  blue -= velocidade;
+  analogWrite(6, blue);
+  analogWrite(11, blue);
+  delay(espera);
+ }
+}
