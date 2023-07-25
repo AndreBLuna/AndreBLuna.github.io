@@ -1,5 +1,8 @@
+<!DOCTYPE html>
 <html><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Solarpunk</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solarpunk</title>
 <style>
 
 
@@ -8,7 +11,10 @@
     background-image: linear-gradient(#8ccce7, #a3dda3);
     margin: 10px 0px 0px 0px;
   }
-  div {
+
+
+
+  .bordafalsa {
     border: 0px solid;
     border-radius: 25px;
     padding: 5px;
@@ -38,6 +44,7 @@
   img{
     margin: 10px;
     border-radius: 25px;
+    float: left;
   }
   table{
     border: 5px transparent;
@@ -46,10 +53,14 @@
     align: center;
     }
   footer{
+  	display: flex;
+    justify-content: space-around;
+    flex-direction: row;
     background-color:rgba(0,0,0,0.2);
     margin: 10px 0px 0px 0px;
     text-align: center;
-    padding: 5px;
+    flex-wrap: wrap;
+    
   }
   a{
     font-family: sans-serif;
@@ -66,7 +77,7 @@
   0%   {color:#dddd33;}
   25%  {color:#ffffff}
   100% {color:#dddd33;}
-
+  }
   td{
     padding: 20px;
     border: 0px;
@@ -78,7 +89,7 @@
     text-align: center;
   }
   h2{
-    letter-spacing: 0.5px;
+    letter-spacing: 0.px;
     color: #000055;
     font-size: 20px;
     text-indent: 50px;
@@ -89,31 +100,50 @@
   h3{
     letter-spacing: 0.5px;
     color: #000055;
-    font-size: 20px;
-    text-indent: 150px;
+    font-size: 25px;
+    text-indent: 50px;
     font-weight: bolder;
+
+
   }
+  @media screen and (max-width: 800px) {
+    img {
+  max-width: 70%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+  align: center;
+}
+}
+
+@media screen and (max-width: 1100px) {
+  .bordafalsa {
+    width: 95%;
+}
+}
 </style>
 
 </head>
 <body bgcolor=#bbddaa>
-  
-<center><div>
+
+<center><div class="bordafalsa">
 <table>
   <tr>
     <td>
-      <h1>Solarpunk </h1>
+      <h1><center>Solarpunk</h1></center>
       <h2>Solarpunk é um gênero de ficção científica e estética que imagina
  um futuro mais positivo e sustentável. Ele se concentra em soluções 
 para questões ambientais e sociais que usam tecnologias limpas e 
 inclusivas. A visão de futuro de Solarpunk tem como base o otimismo, a 
 diversidade, a comunidade e a cooperação.</h2>
     </td>
-
+</tr>
 <tr>
   <td>
-    <img src="solarpunk1.png" align="left">
-<p>A literatura Cyberpunk é um gênero de ficção científica que se 
+    
+<p><img src="Solarpunk_arquivos/solarpunk1.png">A literatura Cyberpunk é um gênero de ficção científica que se 
 concentra na interação entre a tecnologia e a cultura. Ela usa elementos
  futuristas, como computadores, inteligência artificial e realidade 
 virtual, para expressar sua conexão com a tecnologia. A literatura 
@@ -153,10 +183,10 @@ práticas de produção mais limpas, como agricultura orgânica, reciclagem,
  redução de desperdícios e uso de materiais reciclados. O Solarpunk 
 acredita que usar os recursos naturais de forma responsável, com base na
  preservação ambiental, é uma chave para um futuro melhor.</p>
-</td>
+</td></tr>
 <tr>
   <td>
-<img src="solarpunk3.png" align="right">
+<img src="Solarpunk_arquivos/solarpunk3.png">
  <h3>O que é a agricultura orgânica?</h3>
 
 <p>A agricultura orgânica é um sistema de produção alimentar que se 
@@ -183,10 +213,10 @@ energia, água e transporte. Estas cidades também usam a tecnologia para
 fornecer serviços públicos mais eficientes e melhorar a segurança. Por 
 fim, as cidades inteligentes usam a tecnologia para melhorar a 
 comunicação entre os governos e os cidadãos.</p>
-</td>
+</td></tr>
   <tr>
     <td>
-      <img src="solarpunk4.png" align="left">
+      <img src="Solarpunk_arquivos/solarpunk4.png">
   <h3>O que é empreendedorismo criativo?</h3>
 
 <p>O empreendedorismo criativo é um processo de desenvolvimento de negócios
@@ -211,14 +241,14 @@ necessárias para um negócio ter sucesso, bem como os custos associados. A
  modelagem de negócios também envolve a definição de metas e a avaliação
  dos riscos e custos para ajudar a maximizar o lucro. Ela é uma 
 ferramenta útil para desenvolver e ajustar modelos de negócios que sejam
- ambientalmente e socialmente responsáveis.</p></td>
+ ambientalmente e socialmente responsáveis.</p></td></tr>
  
 
   
   <tr>
     
     <td>
-      <img src="solarpunk6.jpg" align="right">
+      <img src="Solarpunk_arquivos/solarpunk6.jpg">
        <h3>A estética solarpunk</h3>
 
 <p>A estética Solarpunk é altamente diversa, variando do punk e do 
@@ -259,6 +289,7 @@ mistura única de elementos tecnológicos e culturais que trabalham juntos
 </tr>
 </table>
 </div></center>
+
 <footer>
   <a href="https://www.canva.com/design/DAE9OvT5O50/1BEmciB6TmECU2BkdqUwFw/view?website#2">RPG</a>
   <a href="https://store.steampowered.com/app/1805110/Solarpunk/"> Jogo</a>
