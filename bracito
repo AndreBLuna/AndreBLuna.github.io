@@ -1,0 +1,93 @@
+#include <Servo.h> 
+
+int motor1pos = 90;
+int motor2pos = 90;
+int motor3pos = 90;
+int motor4pos = 90;
+
+bool botao1 = LOW;
+bool botao2 = LOW;
+bool botao3 = LOW;
+bool botao4 = LOW;
+bool botao5 = LOW;
+
+
+Servo motor1; 
+Servo motor2; 
+Servo motor3; 
+Servo motor4; 
+
+
+void setup() {
+  pinMode(12, INPUT);
+  pinMode(11, INPUT);
+  pinMode(10, INPUT);
+  pinMode(9, INPUT);
+  pinMode(8, INPUT);
+
+  pinMode(7, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(4, OUTPUT);
+
+  motor1.attach(7); 
+  motor2.attach(6);
+  motor3.attach(5);
+  motor4.attach(4);
+
+  motor1pos = motor1.read();
+  motor2pos = motor2.read();
+  motor3pos = motor3.read();
+  motor4pos = motor4.read();
+}
+
+void loop() {
+  botao1 = digitalRead(12);
+  botao2 = digitalRead(11);
+  botao3 = digitalRead(10);
+  botao4 = digitalRead(9);
+  botao5 = digitalRead(8);
+  
+  if (botao1 == HIGH){
+    if (botao5 == HIGH){
+      motor1pos += 5;
+      motor1.write(motor1pos);
+    }
+    if (botao5 == LOW){
+      motor1pos -= 5;
+      motor1.write(motor1pos);
+     }
+    }
+
+if (botao2 == HIGH){
+    if (botao5 == HIGH){
+      motor2pos += 10;
+      motor2.write(motor2pos);
+    }
+    if (botao5 == LOW){
+      motor2pos -= 10;
+      motor2.write(motor2pos);
+     }
+    }
+  if (botao3 == HIGH){
+    if (botao5 == HIGH){
+      motor3pos += 10;
+      motor3.write(motor3pos);
+    }
+    if (botao5 == LOW){
+      motor3pos -= 10;
+      motor3.write(motor3pos);
+     }
+    }
+  if (botao4 == HIGH){
+    if (botao5 == HIGH){
+      motor4pos += 3;
+      motor4.write(motor4pos);
+    }
+    if (botao5 == LOW){
+      motor4pos -= 3;
+      motor4.write(motor4pos);
+     }
+    }
+delay(50);
+}
