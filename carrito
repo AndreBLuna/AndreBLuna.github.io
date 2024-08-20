@@ -1,0 +1,157 @@
+/*
+
+  seguidor de linha baseado no seguinte projeto:
+
+  https://www.robocore.net/tutoriais/motor-dc-arduino-ponte-h-l298n
+*/
+//declaracao dos pinos utilizados para controlar a velocidade de rotacao
+const int PINO_ENA = 6;
+const int PINO_ENB = 5;
+const int potencia = 170; //controla a velocidade máxima do carrinho
+const int comecareto = 0; //alterar o valor caso o carrinho faça curva no início do movimento
+const int andareto = 0; //alterar o valor caso o carrinho esteja andando em curva
+
+
+//declaracao dos pinos utilizados para controlar o sentido do motor
+const int PINO_IN1 = 4;
+const int PINO_IN2 = 3;
+const int PINO_IN3 = 8;
+const int PINO_IN4 = 7;
+
+int i = 0; //declaracao da variavel para as rampas
+
+int pinoSensor1 = 9; /* Pino digital utilizado pelo sensor. */
+int Sensor_IR1 = 0; /* Variável que armazena o estado do sensor (0 ou 1).*/
+int pinoSensor2 = 10; /* Pino digital utilizado pelo sensor. */
+int Sensor_IR2 = 0; /* Variável que armazena o estado do sensor (0 ou 1).*/
+
+const int TEMPO_ESPERA = 1000; //declaracao do intervalo de 1 segundo entre os sentidos de rotacao do motor
+
+const int TEMPO_RAMPA = 10; //declaracao do intervalo de 30 ms para as rampas de aceleracao e desaceleracao
+
+void setup() {
+  delay(2000);
+  //configuração dos pinos como saida
+  pinMode(PINO_ENA, OUTPUT);
+  pinMode(PINO_ENB, OUTPUT);
+  pinMode(PINO_IN1, OUTPUT);
+  pinMode(PINO_IN2, OUTPUT);
+  pinMode(PINO_IN3, OUTPUT);
+  pinMode(PINO_IN4, OUTPUT);
+
+  pinMode(pinoSensor1, INPUT);
+  pinMode(pinoSensor2, INPUT);
+
+  //inicia o codigo com os motores parados
+  digitalWrite(PINO_IN1, LOW);
+  digitalWrite(PINO_IN2, LOW);
+  digitalWrite(PINO_IN3, LOW);
+  digitalWrite(PINO_IN4, LOW);
+  digitalWrite(PINO_ENA, LOW);
+  digitalWrite(PINO_ENB, LOW);
+
+}
+
+void loop() {
+
+  //ir pra frente quando os 2 sensores permitem
+
+  Sensor_IR1 = digitalRead(pinoSensor1);
+  Sensor_IR2 = digitalRead(pinoSensor2);
+  if ((Sensor_IR1 == 0) and (Sensor_IR2 == 0)) {
+    //configura os motores para o sentido horario
+    digitalWrite(PINO_IN1, HIGH);
+    digitalWrite(PINO_IN2, LOW);
+    digitalWrite(PINO_IN3, HIGH);
+    digitalWrite(PINO_IN4, LOW);
+
+    //rampa de aceleracao
+    for (i = 0; i < potencia; i = i + 10) {
+      analogWrite(PINO_ENA, (i + comecareto));
+      analogWrite(PINO_ENB, (i - comecareto));
+      delay(TEMPO_RAMPA); //intervalo para incrementar a variavel i
+    }
+    if (i > potencia){
+    analogWrite(PINO_ENA, (potencia + andareto));
+    analogWrite(PINO_ENB, (potencia - andareto));
+    }
+  }
+  while ((Sensor_IR1 == 0) and (Sensor_IR2 == 0)) {
+    delay(1); //intervalo de reverificação do sensor
+    Sensor_IR1 = digitalRead(pinoSensor1);
+    Sensor_IR2 = digitalRead(pinoSensor2);
+  }
+  //parar quando os 2 sensores mandam
+
+  if ((Sensor_IR1 == 1) and (Sensor_IR2 == 1)) {
+    digitalWrite(PINO_IN1, LOW);
+    digitalWrite(PINO_IN2, LOW);
+    digitalWrite(PINO_IN3, LOW);
+    digitalWrite(PINO_IN4, LOW);
+  }
+  while ((Sensor_IR1 == 1) and (Sensor_IR2 == 1)) {
+    delay(1); //intervalo de reverificação do sensor
+    Sensor_IR1 = digitalRead(pinoSensor1);
+    Sensor_IR2 = digitalRead(pinoSensor2);
+  }
+
+  //virar pra esquerda quando precisa
+  if ((Sensor_IR1 == 1) and (Sensor_IR2 == 0)) {
+    //configura os motores para o sentido horario
+    digitalWrite(PINO_IN1, LOW);
+    digitalWrite(PINO_IN2, HIGH);
+    digitalWrite(PINO_IN3, HIGH);
+    digitalWrite(PINO_IN4, LOW);
+
+    //rampa de aceleracao
+    while ((Sensor_IR1 == 1) and (Sensor_IR2 == 0)) {
+      for (i = 0; i < potencia; i = i + 10) {
+        analogWrite(PINO_ENA, (i + comecareto));
+        analogWrite(PINO_ENB, (i - comecareto));
+        delay(TEMPO_RAMPA); //intervalo para incrementar a variavel i
+      }
+      if (i > potencia){
+      analogWrite(PINO_ENA, (potencia + andareto));
+      analogWrite(PINO_ENB, (potencia - andareto));
+      }
+      delay(TEMPO_RAMPA); //intervalo para incrementar a variavel i
+      Sensor_IR1 = digitalRead(pinoSensor1);
+      Sensor_IR2 = digitalRead(pinoSensor2);
+    }
+    while ((Sensor_IR1 == 1) and (Sensor_IR2 == 0)) { //manter a velocidade
+      delay(1); //intervalo de reverificação do sensor
+      Sensor_IR1 = digitalRead(pinoSensor1);
+      Sensor_IR2 = digitalRead(pinoSensor2);
+    }
+  }
+  //virar pra direita quando precisa
+  if ((Sensor_IR1 == 0) and (Sensor_IR2 == 1)) {
+    //configura os motores para o sentido horario
+    digitalWrite(PINO_IN1, HIGH);
+    digitalWrite(PINO_IN2, LOW);
+    digitalWrite(PINO_IN3, LOW);
+    digitalWrite(PINO_IN4, HIGH);
+
+    //rampa de aceleracao
+    while ((Sensor_IR1 == 0) and (Sensor_IR2 == 1)) {
+      for (i = 0; i < potencia; i = i + 10) {
+        analogWrite(PINO_ENA, (i + comecareto));
+        analogWrite(PINO_ENB, (i - comecareto));
+        delay(TEMPO_RAMPA); //intervalo para incrementar a variavel i
+      }
+      if (i > potencia){
+      analogWrite(PINO_ENA, (potencia + andareto));
+      analogWrite(PINO_ENB, (potencia - andareto));
+      }
+      delay(TEMPO_RAMPA); //intervalo para incrementar a variavel i
+      Sensor_IR1 = digitalRead(pinoSensor1);
+      Sensor_IR2 = digitalRead(pinoSensor2);
+    }
+    while ((Sensor_IR1 == 0) and (Sensor_IR2 == 1)) {
+      delay(1); //intervalo de reverificação do sensor
+      Sensor_IR1 = digitalRead(pinoSensor1);
+      Sensor_IR2 = digitalRead(pinoSensor2);
+    }
+  }
+  
+}
